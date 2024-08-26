@@ -17,6 +17,7 @@
 
 <script>
 import { login } from '@/apis/modules/auth.api';
+import md5 from 'md5';
 
 export default {
   data() {
@@ -30,12 +31,14 @@ export default {
       try {
         // Gửi thông tin đăng nhập tới API
         const response = await login({ username: this.username, password: this.password });
-        
-        // Lưu token vào localStorage
+        const hashedPassword = md5(this.password);
+
         localStorage.setItem('token', response.data.token);
+        localStorage.setItem('username', this.username);
+        localStorage.setItem('password', hashedPassword);
         
-        // Thông báo thành công và chuyển hướng
-        alert(response.data.message || 'Login successful');
+        // alert(response.data.message || 'Đăng nhập thành công, chào mừng '+ this.username + ' trở lại!^^');
+        alert('Đăng nhập thành công, chào mừng '+ this.username + ' trở lại!^^');
         this.$router.push('/');
       } catch (error) {
         console.error('Login failed:', error.response?.data || error.message);
