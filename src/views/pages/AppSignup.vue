@@ -28,11 +28,8 @@ export default {
   methods: {
     async handleSignup() {
       try {
-        // Gửi thông tin đăng ký tới API
         const response = await register({ username: this.username, password: this.password });
-        
-        // Thông báo thành công và chuyển hướng
-        alert(response.data.message || 'Signup successful');
+        alert(response.data.message || 'Tạo tài khoản thành công! Vui lòng đăng nhập');
         this.$router.push('/login');
       } catch (error) {
         console.error('Signup failed:', error.response?.data || error.message);

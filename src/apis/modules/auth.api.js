@@ -1,10 +1,11 @@
-// src/apis/modules/auth.js
-import axios from '../axiosConfig';
+import instance from '@/apis/axiosConfig';
 
-export const login = (credentials) => {
-  return axios.post('/public/auth/login', credentials);
-};
+const login = async ({username, password}) => instance.post('/public/auth/login', {username, password});
+const register = async ({username, password}) => instance.post('/public/auth/signup', {username, password});
 
-export const register = (userInfo) => {
-  return axios.post('/public/auth/signup', userInfo);
-};
+export {
+  login,
+  register
+}
+
+

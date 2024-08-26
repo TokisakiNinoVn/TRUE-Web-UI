@@ -1,25 +1,25 @@
-// import axios from "axios";
+import axios from "axios";
 // import { useAuthStore } from "@/store/auth.store";
 // import packageJson  from "../../package.json";
 // import { useAppStore } from '@/store/app.store';
 
-// const MEDIA_SERVER = import.meta.env.VITE_MEDIA_SERVER;
-// const SOCKET_SERVER = import.meta.env.VITE_SOCKET_SERVER;
-// export {
-//   MEDIA_SERVER,
-//   SOCKET_SERVER
-// }
+const MEDIA_SERVER = import.meta.env.VITE_MEDIA_SERVER;
+const SOCKET_SERVER = import.meta.env.VITE_SOCKET_SERVER;
+export {
+  MEDIA_SERVER,
+  SOCKET_SERVER
+}
 
 // // Nên cấu hình để switch tự động giữa hai môi trường dev và prod
-// const baseURL = import.meta.env.VITE_API_BASE_URL;
+const baseURL = import.meta.env.VITE_API_BASE_URL;
 
-// const httpClient = axios.create({
-//   baseURL,
-//   headers: {
-//     devicetype: "WEB",
-//     deviceinfo: navigator.userAgent,
-//   },
-// });
+const httpClient = axios.create({
+  baseURL,
+  headers: {
+    devicetype: "WEB",
+    deviceinfo: navigator.userAgent,
+  },
+});
 
 // // middlewares xử lý trước khi gửi request
 // httpClient.interceptors.request.use(
@@ -62,4 +62,4 @@
 //   }
 // );
 
-// export default httpClient;
+export default httpClient;
