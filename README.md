@@ -30,25 +30,9 @@ Dự án này là một website front-end giúp người dùng tìm kiếm và t
 
 4. **Chạy dự án**:
    ```bash
-   npm run serve
+   npm run ui
    ```
 
 Dự án sẽ chạy trên `http://localhost:8080` trong trình duyệt của bạn.
 
-## Tính năng
-
-- Tìm kiếm phòng trọ theo địa điểm
-- Bộ lọc theo giá và loại hình
-- Hiển thị thông tin chi tiết về từng phòng trọ
-- Liên hệ với người cho thuê trực tiếp
-
-## Hướng dẫn sử dụng
-
-1. **Tìm kiếm**: Nhập địa điểm vào ô tìm kiếm và nhấn nút tìm kiếm.
-2. **Lọc kết quả**: Sử dụng các bộ lọc để thu hẹp kết quả.
-3. **Xem chi tiết**: Nhấp vào một phòng trọ để xem thêm thông tin.
-4. **Liên hệ**: Sử dụng thông tin được cung cấp để liên hệ với người cho thuê.
-
-## Đóng góp
-
-Phát huy cùng nhau! Nếu bạn có bất kỳ tính năng hoặc sửa lỗi nào để đề xuất, hãy tạo một pull request hoặc mở issue mới.
+## Tính năng (Đang phát triển thêm)
