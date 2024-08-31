@@ -1,9 +1,9 @@
 // src/router/index.js
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../pages/AppHome.vue';
-import Login from '../pages/AppLogin.vue';
-import Signup from '../pages/AppSignup.vue';
-import NotFound from '@/pages/NotFound.vue';
+import Home from '@/views/pages/AppHome.vue';
+import Login from '@/views/pages/AppLogin.vue';
+import Signup from '@/views/pages/AppSignup.vue';
+import NotFound from '@/views/pages/NotFound.vue';
 
 const routes = [
   { path: '/', component: Home },

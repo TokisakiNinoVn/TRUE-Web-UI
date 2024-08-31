@@ -1,21 +1,21 @@
 <template>
-  <LayoutBlank />
-  <div id="app">
+  <!-- <LayoutBlank />
+  <div id="app"> -->
     <router-view />
-    <Footer />
-  </div>
+    <!-- <Footer />
+  </div> -->
 </template>
 
 <script>
-import LayoutBlank from '@/layouts/default/layout-Blank.vue'
-import Footer from './components/AppFooter.vue'
+// import LayoutBlank from '@/layouts/default/layout-Blank.vue'
+// import Footer from '@/views/components/AppFooter.vue'
 
 export default {
   name: 'App',
-  components: {
-    LayoutBlank,
-    Footer
-  }
+  // components: {
+  //   LayoutBlank,
+  //   Footer
+  // }
 }
 </script>
 
@@ -26,6 +26,12 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 </style>

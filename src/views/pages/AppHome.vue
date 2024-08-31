@@ -1,23 +1,23 @@
 <!-- src/views/AppHome.vue -->
 <template>
     <div class="app-home">
-      <Header />
+      <AppHeader />
       <main class="main-content">
-        <img alt="Vue logo" src="../assets/logo.png">
+        <!-- <img alt="Vue logo" src="@/assets/logo.png"> -->
       </main>
-      <Footer />
+      <AppFooter />
     </div>
   </template>
   
   <script>
-  import Header from '@/components/AppHeader.vue';
-  import Footer from '@/components/AppFooter.vue';
+  import AppHeader from '@/views/components/AppHeader.vue';
+  import AppFooter from '@/views/components/AppFooter.vue';
   
   export default {
     name: 'AppHome',
     components: {
-      Header,
-      Footer,
+      AppHeader,
+      AppFooter,
     },
   };
   </script>
@@ -27,6 +27,10 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+  }
+
+  #app {
+    margin: 0;
   }
   
   .main-content {
