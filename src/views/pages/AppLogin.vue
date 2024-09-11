@@ -15,38 +15,47 @@
   </div>
 </template>
 
-<script>
-import { login } from '@/apis/modules/auth.api';
-import md5 from 'md5';
+<script setup>
+import { ref } from 'vue'; // Vue 3's reactive state management
+// import { useRouter } from 'vue-router'; // For routing
+import { useAuthStore } from '@/store/auth.store';
+import { useAccountStore } from '@/store/account.store';
+import { useRouter } from 'vue-router';
 
-export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-    };
-  },
-  methods: {
-    async handleLogin() {
-      try {
-        // Gửi thông tin đăng nhập tới API
-        const response = await login({ username: this.username, password: this.password });
-        const hashedPassword = md5(this.password);
+const router = useRouter();
+const { getInforAccount } = useAccountStore();
+const username = ref('');
+const password = ref('');
 
-        localStorage.setItem('token', response.data.token);
-        localStorage.setItem('username', this.username);
-        localStorage.setItem('password', hashedPassword);
-        
-        // alert(response.data.message || 'Đăng nhập thành công, chào mừng '+ this.username + ' trở lại!^^');
-        alert('Đăng nhập thành công, chào mừng '+ this.username + ' trở lại!^^');
-        this.$router.push('/');
-      } catch (error) {
-        console.error('Login failed:', error.response?.data || error.message);
-        alert('Login failed. Please check your credentials and try again.');
-      }
-    },
-  },
+const handleLogin = async () => {
+  try {
+    const authStore = useAuthStore();
+    const response = await authStore.loginUser({
+      username: username.value,
+      password: password.value,
+    });
+
+    const storedLoginInfor = JSON.parse(localStorage.getItem('loginInfor'));
+    const idUser = storedLoginInfor.id;
+    const inforAccount = await getInforAccount(idUser);
+
+    if (!inforAccount) {
+      throw new Error('Không thể lấy thông tin tài khoản.');
+    }
+    if (response.status == "success") {
+          alert(response.message);
+          router.push('/');
+        } else {
+          alert(response.message);
+        }
+
+    localStorage.setItem('inforAccount', JSON.stringify(inforAccount));
+  } catch (error) {
+    console.error('Login failed:', error);
+    alert('Đã có lỗi xảy ra. Vui lòng thử lại sau!');
+  }
 };
+
 </script>
 
 <style scoped>
