@@ -15,28 +15,34 @@
   </div>
 </template>
 
-<script>
-import { register } from '@/apis/modules/auth.api';
+<script setup>
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useAuthStore } from '@/store/auth.store'; // Import auth store
 
-export default {
-  data() {
-    return {
-      username: '',
-      password: '',
-    };
-  },
-  methods: {
-    async handleSignup() {
-      try {
-        const response = await register({ username: this.username, password: this.password });
-        alert(response.data.message || 'Tạo tài khoản thành công! Vui lòng đăng nhập');
-        this.$router.push('/login');
-      } catch (error) {
-        console.error('Signup failed:', error.response?.data || error.message);
-        alert('Signup failed. Please check your details and try again.');
-      }
-    },
-  },
+// Khai báo các biến reactivity
+const username = ref('');
+const password = ref('');
+const router = useRouter();
+const authStore = useAuthStore(); // Lấy instance của store
+
+// Function xử lý đăng ký
+const handleSignup = async () => {
+  try {
+    const response = await authStore.signupUser({
+      username: username.value,
+      password: password.value,
+    });
+
+    // Kiểm tra nếu response có success hoặc status
+    if (response.status == "success") {
+      alert(response.message || 'Tạo tài khoản thành công! Vui lòng đăng nhập.');
+      router.push('/login'); // Điều hướng đến trang login sau khi đăng ký thành công
+    }
+  } catch (error) {
+    console.error('Signup failed:', error);
+    alert('Đăng ký thất bại. Vui lòng thử lại.');
+  }
 };
 </script>
 

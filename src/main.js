@@ -5,6 +5,9 @@ import router from './router';
 import store from './store';
 import './styles/main.scss';
 
+if (!localStorage.getItem('isLoggedIn')) {
+  localStorage.setItem('isLoggedIn', 'false');
+}
 createApp(App)
   .use(router)
   .use(store)

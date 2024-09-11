@@ -1,47 +1,48 @@
-// src/store/modules/user.js
-import { login } from '@/apis/modules/auth.api';
-
-export default {
-  namespaced: true,
-  state: {
+// src/store/modules/auth.store.js
+import { defineStore } from 'pinia';
+import { login, register } from '@/apis/modules/auth.api';
+// import { useRouter } from 'vue-router'; // For routing
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
     user: null,
     token: localStorage.getItem('token') || '',
-  },
-  mutations: {
-    SET_USER(state, user) {
-      state.user = user;
-    },
-    SET_TOKEN(state, token) {
-      state.token = token;
-      localStorage.setItem('token', token);
-    },
-    CLEAR_USER_DATA(state) {
-      state.user = null;
-      state.token = '';
-      localStorage.removeItem('token');
-    },
-  },
+  }),
+
   actions: {
-    async login({ commit }, credentials) {
+    async loginUser(credentials) {
+      // const router = useRouter();
       try {
         const response = await login(credentials);
-        const { token, data: user } = response.data;
-        
-        // Save token and user information
-        commit('SET_TOKEN', token);
-        commit('SET_USER', user);
+        const { token, data } = response.data;
 
-        return response;
+        localStorage.setItem('token', token);
+        this.token = token;
+        this.user = data;
+        const loginInfor = data;
+        localStorage.setItem('loginInfor', JSON.stringify(loginInfor));
+
+        return response?.data || []
+
       } catch (error) {
-        throw error;
+        return { success: false, message: error.response?.data?.message || 'Đăng nhập thất bại!' };
       }
     },
-    async logout({ commit }) {
-      commit('CLEAR_USER_DATA');
+
+    async signupUser(credentials) {
+      try {
+        const response = await register(credentials);
+        return response?.data;
+      } catch (error) {
+        return { success: false, message: error.response?.data?.message || 'Đăng ký thất bại!' };
+      }
+    },
+    
+    logoutUser() {
+      localStorage.removeItem('token');
+      localStorage.removeItem('loginInfor');
+      localStorage.setItem('isLoggedIn', 'false');
+      this.token = '';
+      this.user = null;
     },
   },
-  getters: {
-    isAuthenticated: (state) => !!state.token,
-    user: (state) => state.user,
-  },
-};
+});
