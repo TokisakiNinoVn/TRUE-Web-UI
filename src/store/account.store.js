@@ -8,12 +8,12 @@ export const useAccountStore = defineStore('accounts', {
     error: null,
   }),
   actions: {
-    async getInforAccount(accountId) {
+    async getInforAccount(username) {
       try {
         this.loading = true;
         this.error = null;
         
-        const response = await getUserInfo(accountId) || {};
+        const response = await getUserInfo(username) || {};
         
         return response?.data || [];
       } catch (err) {
