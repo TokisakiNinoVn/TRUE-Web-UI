@@ -18,13 +18,12 @@
 <script setup>
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
-import { useAuthStore } from '@/store/auth.store'; // Import auth store
+import { useAuthStore } from '@/store/auth.store';
 
-// Khai báo các biến reactivity
 const username = ref('');
 const password = ref('');
 const router = useRouter();
-const authStore = useAuthStore(); // Lấy instance của store
+const authStore = useAuthStore();
 
 // Function xử lý đăng ký
 const handleSignup = async () => {
@@ -34,10 +33,9 @@ const handleSignup = async () => {
       password: password.value,
     });
 
-    // Kiểm tra nếu response có success hoặc status
     if (response.status == "success") {
       alert(response.message || 'Tạo tài khoản thành công! Vui lòng đăng nhập.');
-      router.push('/login'); // Điều hướng đến trang login sau khi đăng ký thành công
+      router.push('/login');
     }
   } catch (error) {
     console.error('Signup failed:', error);

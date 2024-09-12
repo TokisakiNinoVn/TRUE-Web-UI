@@ -10,7 +10,6 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async loginUser(credentials) {
-      // const router = useRouter();
       try {
         const response = await login(credentials);
         const { token, data } = response.data;
@@ -20,6 +19,7 @@ export const useAuthStore = defineStore('auth', {
         this.user = data;
         const loginInfor = data;
         localStorage.setItem('loginInfor', JSON.stringify(loginInfor));
+        localStorage.setItem('isLoggedIn', 'true');
 
         return response?.data || []
 

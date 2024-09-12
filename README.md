@@ -1,6 +1,6 @@
 # TRUE-Web-UI
 
-Tech: Vue3js - Scss
+Tech: Vue3js - Tailwind
 
 # Tìm kiếm phòng trọ, căn hộ mini
 
