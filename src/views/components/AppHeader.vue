@@ -6,6 +6,7 @@
         <li><router-link to="/">Home</router-link></li>
         <li><router-link to="/contact">Contact</router-link></li>
 
+        <!-- Hiển thị nút Login và Signup nếu chưa đăng nhập -->
         <li v-if="!isLoggedIn">
           <router-link to="/login">Login</router-link>
         </li>
@@ -13,10 +14,11 @@
           <router-link to="/signup">Signup</router-link>
         </li>
 
+        <!-- Hiển thị thông tin tài khoản nếu đã đăng nhập -->
         <li v-if="isLoggedIn">
-          <router-link :to="`/account/${userInfor.username}`">
-            <span>{{ userInfor.fullname }}</span>
-            <img :src="userInfor.avatar" alt="avatar" class="avatar">
+          <router-link :to="`/user/${userInfor.username}`">
+            <span>{{ userInfor.username }}</span>
+            <img :src="baseURL + userInfor.avatar.imageUrl" alt="avatar" class="avatar">
           </router-link>
         </li>
       </ul>
@@ -25,12 +27,15 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: 'AppHeader',
   data() {
     return {
       isLoggedIn: false,
       userInfor: {},
+      baseURL: axios.baseURL || 'http://localhost:5000',
     };
   },
   mounted() {
@@ -40,12 +45,15 @@ export default {
     if (isLoggedIn && accountInfo) {
       this.isLoggedIn = true;
       const parsedAccount = JSON.parse(accountInfo);
+
+      // Gán thông tin người dùng từ localStorage
       this.userInfor = {
         ...parsedAccount.userInfor,
-        username: parsedAccount.username
+        username: parsedAccount.username,
+        avatar: parsedAccount.userInfor.avatar || { imageUrl: '/default-avatar.png' } // Nếu không có avatar, sử dụng ảnh mặc định
       };
     }
-  },
+  }
 };
 </script>
 

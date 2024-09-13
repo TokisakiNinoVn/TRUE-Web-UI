@@ -10,7 +10,7 @@ const routes = [
   { path: '/', component: Home },
   { path: '/login', component: Login },
   { path: '/signup', component: Signup },
-  { path: '/account/:username', name: 'AccountView', component: AccountView, props: true, },
+  { path: '/user/:username', name: 'AccountView', component: AccountView, props: true, },
 
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound }
 ];
