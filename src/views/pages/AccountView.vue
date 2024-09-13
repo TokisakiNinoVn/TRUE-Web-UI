@@ -1,7 +1,6 @@
 <template>
   <AppHeader />
   <AppNavAccount />
-
   <div id="main" class="w-full min-h-screen flex items-center justify-center">
     <div class="card bg-gray-200 w-[900px] flex flex-col p-6">
       <div class="top-card flex flex-col">
@@ -10,7 +9,7 @@
       </div>
       <form class="main-form flex flex-col mt-4 space-y-4" @submit.prevent="handleSubmit">
         <div class="main-forms flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          <div class="form-left ">
+          <div class="form-left">
             <table class="w-full">
               <tr>
                 <td class="column-1 text-right pr-2 font-medium"><label for="username">Tên đăng nhập</label></td>
@@ -49,10 +48,10 @@
               </tr>
               <tr>
                 <td class="column-1 text-right pr-2 font-medium"><label for="birthday">Ngày sinh</label></td>
+                <td class="column-2 text-left"> <span> {{ formatBirthday(userInfo.birthday) }} </span> </td>
                 <td class="column-2 text-left"><input class="border border-gray-300 rounded p-2 w-full" v-model="userInfo.birthday" id="birthday" type="date" @change="formatBirthday" /></td>
               </tr>
             </table>
-
             <div class="mt-4">
               <label class="font-medium" for="bio">Bio</label>
               <textarea class="border border-gray-300 rounded p-2 w-full mt-2" v-model="userInfo.bio" id="bio"></textarea>
@@ -66,7 +65,7 @@
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Lưu</button>
       </form>
       <div class="tool-account mt-4 space-x-4">
-        <button class="btn-tool-account bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" @click="logout">Đăng xuất</button>
+        <button class="btn-tool-account bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600" @click="logoutUser">Đăng xuất</button>
         <button class="btn-tool-account bg-gray-500 text-white py-2 px-4 rounded hover:bg-gray-600" @click="deleteAccount">Xóa tài khoản</button>
       </div>
     </div>
@@ -74,16 +73,19 @@
   <AppFooter />
 </template>
 
-
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
+import { useAuthStore } from '@/store/auth.store';
+
 import AppHeader from '@/views/components/AppHeader.vue';
 import AppFooter from '@/views/components/AppFooter.vue';
 import AppNavAccount from '@/views/components/AppNavAccount.vue';
+import instance from '@/apis/axiosConfig';
 
-const route = useRoute();
-const username = route.params.username;
+const router = useRoute();
+const username = router.params.username;
+const { logoutUser } = useAuthStore();
 
 const userInfo = ref({
   username: '',
@@ -101,7 +103,10 @@ onMounted(() => {
   if (accountInfo) {
     const parsedAccount = JSON.parse(accountInfo);
     if (parsedAccount.username === username) {
-      userInfo.value = { ...parsedAccount.userInfor, avatarUrl: parsedAccount.userInfor.avatar };
+      userInfo.value = { 
+        ...parsedAccount.userInfor, 
+        avatarUrl: `${instance.defaults.baseURL}${parsedAccount.userInfor.avatar.imageUrl}` 
+      };
     }
   }
 });
@@ -121,7 +126,7 @@ const handleAvatarUpload = (event) => {
 const formatBirthday = () => {
   const date = new Date(userInfo.value.birthday);
   const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+  const month = String(date.getMonth() + 1).padStart(2, '0');
   const year = date.getFullYear();
   userInfo.value.birthday = `${day}/${month}/${year}`;
 };
@@ -131,15 +136,25 @@ const handleSubmit = () => {
   console.log('Thông tin đã được lưu:', userInfo.value);
 };
 
-const logout = () => {
-  // Handle logout logic here
-};
+// async function logout() {
+//   const response = await logoutUser();
+//   if (response.status === 'success') {
+//     localStorage.removeItem('token');
+//     localStorage.removeItem('loginInfor');
+//     localStorage.setItem('isLoggedIn', 'false');
+//     this.token = '';
+//     this.user = null;
+//     router.push('/');
+//   } else {
+//       alert(response.message);
+//     }
+// }
 
 const deleteAccount = () => {
-  // Handle account deletion logic here
 };
 
 </script>
+
 
 <style scoped>
 .avatar {

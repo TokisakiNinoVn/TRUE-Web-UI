@@ -1,7 +1,7 @@
 // src/store/modules/auth.store.js
 import { defineStore } from 'pinia';
 import { login, register } from '@/apis/modules/auth.api';
-// import { useRouter } from 'vue-router'; // For routing
+// import { useRouter } from 'vue-router';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     user: null,
@@ -37,12 +37,18 @@ export const useAuthStore = defineStore('auth', {
       }
     },
     
-    logoutUser() {
-      localStorage.removeItem('token');
-      localStorage.removeItem('loginInfor');
+    async logoutUser() {
+      if (localStorage.getItem("token")) {
+        localStorage.removeItem("token");
+      }
+      localStorage.removeItem("inforAccount");
+      localStorage.removeItem("loginInfor");
       localStorage.setItem('isLoggedIn', 'false');
-      this.token = '';
-      this.user = null;
+      this.accessToken = undefined;
+      alert("Đăng xuất thành công!")
+      setTimeout(() => {
+        this.$router.push("/");
+      }, 3000);
     },
   },
 });
