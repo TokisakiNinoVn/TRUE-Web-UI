@@ -4,9 +4,9 @@
     <nav>
       <ul>
         <li><router-link to="/">Home</router-link></li>
-        <li><router-link to="/contact">Contact</router-link></li>
-
-        <!-- Hiển thị nút Login và Signup nếu chưa đăng nhập -->
+        <li><router-link to="/admin-post">Admin post</router-link></li>
+        <!-- <li><router-link to="/reel"></router-link></li>
+        <li><router-link to="/reel"></router-link></li> -->
         <li v-if="!isLoggedIn">
           <router-link to="/login">Login</router-link>
         </li>
@@ -14,7 +14,6 @@
           <router-link to="/signup">Signup</router-link>
         </li>
 
-        <!-- Hiển thị thông tin tài khoản nếu đã đăng nhập -->
         <li v-if="isLoggedIn">
           <router-link :to="`/user/${userInfor.username}`">
             <span>{{ userInfor.username }}</span>

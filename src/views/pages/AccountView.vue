@@ -1,4 +1,5 @@
 <template>
+  <AppOwnerHeader />
   <AppHeader />
   <AppNavAccount />
   <div id="main" class="w-full min-h-screen flex items-center justify-center">
@@ -8,12 +9,12 @@
         <span class="text-base text-left text-gray-600">Quản lý thông tin hồ sơ để bảo mật tài khoản</span>
       </div>
       <form class="main-form flex flex-col mt-4 space-y-4" @submit.prevent="handleSubmit">
-        <div class="main-forms flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          <div class="form-left">
+        <div class="main-forms flex justify-between flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+          <div class="form-left w-[450px]">
             <table class="w-full">
               <tr>
                 <td class="column-1 text-right pr-2 font-medium"><label for="username">Tên đăng nhập</label></td>
-                <td class="column-2 text-left font-semibold"><span>{{ username }}</span></td>
+                <td class="column-2 text-left font-semibold p-2"><span>{{ username }}</span></td>
               </tr>
               <tr>
                 <td class="column-1 text-right pr-2 font-medium"><label for="phone">Số điện thoại</label></td>
@@ -21,14 +22,15 @@
               </tr>
               <tr>
                 <td class="column-1 text-right pr-2 font-medium"><label for="address">Địa chỉ</label></td>
-                <td class="column-2 text-left"><input class="border border-gray-300 rounded p-2 w-full" v-model="userInfo.address" id="address" type="text" /></td>
+                <td class="column-2 text-left font-semibold p-2"><span class="">{{ userInfo.address }}</span></td>
+                <!-- <td class="column-2 text-left"><input class="border border-gray-300 rounded p-2 w-full" v-model="userInfo.address" id="address" type="text" /></td> -->
               </tr>
               <tr>
                 <td class="column-1 text-right pr-2 font-medium"><label for="email">Email</label></td>
                 <td class="column-2 text-left"><input class="border border-gray-300 rounded p-2 w-full" v-model="userInfo.email" id="email" type="email" /></td>
               </tr>
               <tr>
-                <td class="column-1 text-right pr-2 font-medium"><label>Giới tính</label></td>
+                <td class="column-1 text-right p-2 font-medium"><label>Giới tính</label></td>
                 <td class="column-2">
                   <div class="space-x-2">
                     <label class="inline-flex items-center space-x-1">
@@ -47,9 +49,12 @@
                 </td>
               </tr>
               <tr>
+                <!-- <td class="column-1 text-right pr-2 font-medium"><label for="birthday">Ngày sinh</label></td>
+                <td class="column-2 text-left"> <span> {{ formatBirthday(userInfo.birthday) }} </span> </td> -->
+                <!-- <td class="column-2 text-left"><input class="border border-gray-300 rounded p-2 w-full" v-model="userInfo.birthday" id="birthday" type="date" @change="formatBirthday" /></td> -->
                 <td class="column-1 text-right pr-2 font-medium"><label for="birthday">Ngày sinh</label></td>
-                <td class="column-2 text-left"> <span> {{ formatBirthday(userInfo.birthday) }} </span> </td>
-                <td class="column-2 text-left"><input class="border border-gray-300 rounded p-2 w-full" v-model="userInfo.birthday" id="birthday" type="date" @change="formatBirthday" /></td>
+                <td class="column-2 text-left"> <span> {{ formattedBirthday }} </span> </td>
+                
               </tr>
             </table>
             <div class="mt-4">
@@ -71,6 +76,7 @@
     </div>
   </div>
   <AppFooter />
+  <AppToolbar />
 </template>
 
 <script setup>
@@ -78,15 +84,18 @@ import { ref, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import { useAuthStore } from '@/store/auth.store';
 
+import moment from 'moment';
+import AppOwnerHeader from '@/views/components/AppOwnerHeader.vue';
 import AppHeader from '@/views/components/AppHeader.vue';
 import AppFooter from '@/views/components/AppFooter.vue';
+import AppToolbar from '@/views/components/AppToolbar.vue';
 import AppNavAccount from '@/views/components/AppNavAccount.vue';
 import instance from '@/apis/axiosConfig';
 
 const router = useRoute();
 const username = router.params.username;
 const { logoutUser } = useAuthStore();
-
+const formattedBirthday = ref('');
 const userInfo = ref({
   username: '',
   phone: '',
@@ -107,6 +116,7 @@ onMounted(() => {
         ...parsedAccount.userInfor, 
         avatarUrl: `${instance.defaults.baseURL}${parsedAccount.userInfor.avatar.imageUrl}` 
       };
+      formattedBirthday.value = moment(userInfo.value.birthday).format('DD/MM/YYYY');
     }
   }
 });
@@ -123,13 +133,13 @@ const handleAvatarUpload = (event) => {
 };
 
 // Format the birthday in the desired format
-const formatBirthday = () => {
-  const date = new Date(userInfo.value.birthday);
-  const day = String(date.getDate()).padStart(2, '0');
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const year = date.getFullYear();
-  userInfo.value.birthday = `${day}/${month}/${year}`;
-};
+// const formatBirthday = () => {
+//   const date = new Date(userInfo.value.birthday);
+//   const day = String(date.getDate()).padStart(2, '0');
+//   const month = String(date.getMonth() + 1).padStart(2, '0');
+//   const year = date.getFullYear();
+//   userInfo.value.birthday = `${day}/${month}/${year}`;
+// };
 
 const handleSubmit = () => {
   // Handle form submission logic here
@@ -164,7 +174,7 @@ const deleteAccount = () => {
   object-fit: cover;
 }
 
-input:focus {
+input:focus, textarea:focus {
   outline: none;
 }
 
@@ -177,14 +187,13 @@ input:focus {
   justify-content: center;
 }
 .card {
-  width: 700px;
+  /* width: 900px;   */
   background-color: rgba(216, 216, 216, 0.651);
 }
 
 .column-1 {
   display: flex;
   justify-content: flex-end;
-  padding-right: 10px;
   width: 150px;
 }
 /* .column-2 {
