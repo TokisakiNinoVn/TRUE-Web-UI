@@ -17,8 +17,8 @@ export default {
   color: #fff;
   text-align: center;
   padding: 20px 0;
-  position: fixed;
+  /* position: fixed; */
   width: 100%;
-  bottom: 0;
+  /* bottom: 0; */
 }
 </style>

@@ -1,36 +1,20 @@
 <!-- src/views/AppHome.vue -->
 <template>
-  <AppOwnerHeader />
-  <div class="app-home">
+    <AppOwnerHeader />
     <AppHeader />
-    <main class="main-content">
-      
-    </main>
+
     <AppFooter />
     <AppToolbar />
-  </div>
 </template>
-
+  
 <script setup>
 import AppHeader from '@/views/components/AppHeader.vue';
 import AppFooter from '@/views/components/AppFooter.vue';
 import AppOwnerHeader from '@/views/components/AppOwnerHeader.vue';
 import AppToolbar from '@/views/components/AppToolbar.vue';
 </script>
-
+  
 <style scoped>
-.app-home {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
 
-#app {
-  margin: 0;
-}
-
-.main-content {
-  flex: 1;
-  padding: 20px;
-}
 </style>
+  
