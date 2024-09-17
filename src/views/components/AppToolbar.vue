@@ -1,31 +1,56 @@
-<!-- src/components/Header.vue -->
 <template>
-    <nav class="main fixed bottom-10 flex justify-between items-center h-14 shadow-md px-4 w-[400px] mx-auto left-0 right-0 rounded-full">
-        <!-- Back lại trang trước đó -->
-        <li><ion-icon name="arrow-back-outline" class="text-xl"></ion-icon></li>
-
-        <li><router-link to="/"><ion-icon name="home-outline" class="text-xl"></ion-icon></router-link></li>
-        <li class="relative -top-4 bg-blue-500 rounded-full p-4 text-white shadow-lg cursor-pointer">
-            <ion-icon name="add-outline" class="text-4xl"></ion-icon>
-        </li>
-
-        <li><ion-icon name="arrow-up-outline" class="text-xl cursor-pointer" @click="scrollToTop"></ion-icon></li>
-        <li v-if="isLoggedIn">
-            <router-link :to="`/user/${userInfor.username}`">
-                <ion-icon name="person-circle-outline" class="text-2xl"></ion-icon>
-            </router-link>
-        </li>
-        <li v-else>
-            <router-link to="/login">
-                <ion-icon name="person-circle-outline" class="text-2xl"></ion-icon>
-            </router-link>
-        </li>
-    </nav>
-
-</template>
+    <nav class="fixed bottom-4 left-0 right-0 mx-auto w-[400px] h-16 flex justify-between items-center px-4 rounded-full bg-white shadow-lg border border-gray-200">
+      <!-- Back Button -->
+      <li>
+        <ion-icon 
+          name="arrow-back-outline" 
+          class="text-2xl text-gray-600 hover:text-gray-800 cursor-pointer transition duration-150 ease-in-out"
+          @click="goBack"
+        ></ion-icon>
+      </li>
   
+      <!-- Home Button -->
+      <li>
+        <router-link to="/">
+          <ion-icon name="home-outline" class="text-2xl text-gray-600 hover:text-gray-800 transition duration-150 ease-in-out"></ion-icon>
+        </router-link>
+      </li>
+  
+      <!-- Add Post Button / Login Button -->
+      <li class="relative flex items-center justify-center">
+        <router-link :to="isLoggedIn ? '/addpost' : '/login'" class="flex items-center justify-center">
+          <ion-icon 
+            name="add-outline" 
+            class="text-4xl text-white bg-blue-500 rounded-full p-3 shadow-lg hover:bg-blue-600 transition duration-150 ease-in-out"
+          ></ion-icon>
+        </router-link>
+      </li>
+  
+      <!-- Scroll to Top Button -->
+      <li>
+        <ion-icon 
+          name="arrow-up-outline" 
+          class="text-2xl text-gray-600 hover:text-gray-800 cursor-pointer transition duration-150 ease-in-out"
+          @click="scrollToTop"
+        ></ion-icon>
+      </li>
+  
+      <!-- User Profile Button / Login Button -->
+      <li>
+        <router-link :to="isLoggedIn ? `/user/${userInfor.username}` : '/login'">
+          <ion-icon 
+            name="person-circle-outline" 
+            class="text-2xl text-gray-600 hover:text-gray-800 transition duration-150 ease-in-out"
+          ></ion-icon>
+        </router-link>
+      </li>
+    </nav>
+  </template>
+  
+
 <script>
 import axios from 'axios';
+
 export default {
     name: 'AppToolbar',
     data() {
@@ -42,7 +67,7 @@ export default {
       if (isLoggedIn && accountInfo) {
         this.isLoggedIn = true;
         const parsedAccount = JSON.parse(accountInfo);
-  
+
         // Gán thông tin người dùng từ localStorage
         this.userInfor = {
           ...parsedAccount.userInfor,
@@ -53,11 +78,14 @@ export default {
     methods: {
       scrollToTop() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+      goBack() {
+        this.$router.go(-1); // Go back to the previous page
       }
     }
 };
 </script>
-  
+
 <style scoped>
 nav.main {
     background-color: antiquewhite;
@@ -72,4 +100,3 @@ li {
     list-style: none;
 }
 </style>
-  
