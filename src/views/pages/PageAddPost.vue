@@ -20,8 +20,6 @@
                 />
               </div>
   
-              
-  
               <!-- Mô tả -->
               <div class="flex flex-col">
                 <label for="description" class="text-lg font-medium text-gray-900">Mô tả</label>
@@ -163,7 +161,7 @@ import AppHeader from '@/views/components/AppHeader.vue';
 import AppFooter from '@/views/components/AppFooter.vue';
 import AppOwnerHeader from '@/views/components/AppOwnerHeader.vue';
 import AppToolbar from '@/views/components/AppToolbar.vue';
-import AddressSelect from '@/views/components/AddressSelect.vue';
+import AddressSelect from '@/views/components/AppAddressSelect.vue';
 
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';

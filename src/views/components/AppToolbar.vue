@@ -9,6 +9,14 @@
         ></ion-icon>
       </li>
   
+      <li>
+        <ion-icon 
+          name="search-outline" 
+          class="text-2xl text-gray-600 hover:text-gray-800 cursor-pointer transition duration-150 ease-in-out"
+          @click="goBack"
+        ></ion-icon>
+      </li>
+  
       <!-- Home Button -->
       <li>
         <router-link to="/">
@@ -40,6 +48,15 @@
         <router-link :to="isLoggedIn ? `/user/${userInfor.username}` : '/login'">
           <ion-icon 
             name="person-circle-outline" 
+            class="text-2xl text-gray-600 hover:text-gray-800 transition duration-150 ease-in-out"
+          ></ion-icon>
+        </router-link>
+      </li>
+      <!-- User Profile Button / Login Button -->
+      <li>
+        <router-link :to="isLoggedIn ? '/chat' : '/login'">
+          <ion-icon 
+            name="chatbubble-ellipses-outline" 
             class="text-2xl text-gray-600 hover:text-gray-800 transition duration-150 ease-in-out"
           ></ion-icon>
         </router-link>

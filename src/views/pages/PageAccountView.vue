@@ -93,7 +93,7 @@ import AppFooter from '@/views/components/AppFooter.vue';
 import AppToolbar from '@/views/components/AppToolbar.vue';
 import AppNavAccount from '@/views/components/AppNavAccount.vue';
 import instance from '@/apis/axiosConfig';
-import AddressSelect from '@/views/components/AddressSelect.vue';
+import AddressSelect from '@/views/components/AppAddressSelect.vue';
 
 const router = useRoute();
 const username = router.params.username;

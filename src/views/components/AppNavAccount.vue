@@ -2,7 +2,7 @@
 <template>
     <header class="header">
     <ul>
-        <li><router-link to="/account/like">Likes</router-link></li>
+        <!-- <li><router-link to="/account/like">Likes</router-link></li> -->
         <li>
             <router-link :to="`/account/${userInfor.username}`">Hồ sơ cá nhân</router-link>
         </li>
