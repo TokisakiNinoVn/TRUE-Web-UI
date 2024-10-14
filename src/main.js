@@ -1,8 +1,8 @@
 // src/main.js
 import { createApp } from 'vue';
 import App from './App.vue';
-import router from './router';
-import store from './store';
+import router from './navigation';
+import store from './state';
 import './styles/main.scss';
 import './assets/css/main.css';
 
