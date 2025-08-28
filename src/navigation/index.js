@@ -19,7 +19,13 @@ const routes = [
   { path: '/addpost', component: AddPost },
   { path: '/post-details/:id', name: 'PostDetails', component: PostDetails, props: true },
   { path: '/user/:username', name: 'AccountView', component: AccountView, props: true, },
-  { path: '/search-results', name: 'SearchResults', component: SearchResults },
+
+  {
+    path: '/search-results',
+    name: 'SearchResults',
+    component: SearchResults
+  },
+
   { path: '/chat', name: 'PageBlankMess', component: PageBlankMess },
   // { path: '/chat', name: 'PageChat', component: PageChat },
   { path: '/chat/:id', name: 'PageChat', component: PageChat },

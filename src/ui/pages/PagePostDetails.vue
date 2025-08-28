@@ -50,10 +50,10 @@
 
               <!-- Contact and Save Buttons -->
               <div class="flex space-x-4 mt-4">
-                <button class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200">
+                <button @click="contactUser" class="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200">
                   Liên hệ
                 </button>
-                <button class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-200">
+                <button @click="savePost" class="bg-yellow-500 text-white px-4 py-2 rounded hover:bg-yellow-600 transition duration-200">
                   Lưu tin
                 </button>
               </div>
@@ -64,7 +64,7 @@
         <!-- Comments Section -->
         <div v-if="post" class="bg-white shadow-lg rounded-lg p-6 mt-8">
           <h4 class="text-2xl font-semibold mb-4 text-gray-800">Bình luận</h4>
-          <div v-if="comments.length" class="space-y-4">
+          <div v-if="comments.length" class="space-y-4 flex flex-col justify-start items-start">
             <div v-for="comment in comments" :key="comment.id" class="border-b pb-4 mb-4">
               <p class="text-base text-gray-800"><strong>{{ comment.author }}:</strong> {{ comment.content }}</p>
             </div>
@@ -73,7 +73,7 @@
 
           <!-- Add Comment Input -->
           <div class="mt-6">
-            <textarea v-model="newComment" rows="3" class="w-full border border-gray-300 rounded-lg p-2 text-gray-700" placeholder="Viết bình luận..."></textarea>
+            <textarea v-model="newComment" rows="3" class="textarea-comment w-full border border-gray-300 rounded-lg p-2 text-gray-700" placeholder="Viết bình luận..."></textarea>
             <button @click="postComment" class="bg-blue-500 text-white px-4 py-2 rounded mt-4" :disabled="!newComment">Gửi bình luận</button>
           </div>
         </div>
@@ -141,11 +141,33 @@ const postComment = () => {
   // Simulate adding the new comment (replace with actual API call)
   const comment = {
     id: Date.now(),
-    author: accountInfo.fullname,
+    author: accountInfo.username,
     content: newComment.value,
   };
   comments.value.push(comment);
   newComment.value = ''; // Clear input after posting
+};
+const savePost = () => {
+  const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
+  const accountInfo = JSON.parse(localStorage.getItem('inforAccount'));
+
+  if (!loggedInStatus || !accountInfo) {
+    router.push('/login');
+    return;
+  }
+
+  alert("Lưu bài viết thành công!")
+};
+const contactUser = () => {
+  const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
+  const accountInfo = JSON.parse(localStorage.getItem('inforAccount'));
+
+  if (!loggedInStatus || !accountInfo) {
+    router.push('/login');
+    return;
+  }
+
+  alert("Chức năng này đang được phát triển, sẽ sớm có cập nhật 💖!")
 };
 
 onMounted(loadPostDetails);
@@ -157,7 +179,9 @@ main {
   min-height: 100vh;
 }
 
-input:focus {
+input:focus, .textarea-comment:focus {
   outline: none;
 }
+
+
 </style>

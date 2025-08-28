@@ -57,7 +57,7 @@ const getImageUrl = (fileUrl) => {
 const loadLowestPricedPosts = async () => {
     const query = router.query || '';
     try {
-    await postStore.searchPostsAction(query);
+        await postStore.searchPostsAction(query);
     posts.value = postStore.lowestPricedPosts;
     } catch (err) {
     error.value = err.response?.data?.message || 'Failed to fetch lowest priced posts';

@@ -10,7 +10,7 @@
       </div>
       <form class="main-form flex flex-col space-y-4" @submit.prevent="handleSubmit">
         <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-          <div class="form-left w-full md:w-1/2">
+          <div class="form-left w-full md:w-3/4">
             <table class="w-full">
               <tbody>
                 <tr>
@@ -62,9 +62,9 @@
               <textarea class="border border-gray-300 rounded p-2 w-full mt-2" v-model="userInfo.bio" id="bio"></textarea>
             </div>
           </div>
-          <div class="form-right flex flex-col items-center space-y-4 md:space-y-0 md:items-start">
-            <img :src="userInfo.avatarUrl" alt="User Avatar" class="avatar w-24 h-24 rounded-full object-cover" />
-            <input type="file" class="mt-2" @change="handleAvatarUpload" />
+          <div class="form-right w-1/3 flex flex-col justify-center space-y-4 md:space-y-0 md:items-center">
+            <img :src="userInfo.avatarUrl" alt="User Avatar" class="avatar rounded-full object-cover" />
+            <input type="file" class="mt-2 ml-7" @change="handleAvatarUpload" />
           </div>
         </div>
         <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">Lưu</button>
@@ -156,6 +156,7 @@ const handleAddressSelected = (newAddress) => {
 
 const handleSubmit = () => {
   // Handle form submission logic here
+  alert("Chức năng đang được phát triển🥲!")
   console.log('Thông tin đã được lưu:', userInfo.value);
 };
 
@@ -174,6 +175,8 @@ const handleSubmit = () => {
 // }
 
 const deleteAccount = () => {
+
+  alert("Chức năng đang được phát triển🥲!")
 };
 
 </script>
@@ -181,10 +184,11 @@ const deleteAccount = () => {
 
 <style scoped>
 .avatar {
-  width: 100px;
-  height: 100px;
+  width: 200px;
   border-radius: 50%;
   object-fit: cover;
+  margin-bottom: 10px;
+  border: 3px double rgba(241, 54, 54, 0.745);
 }
 
 input:focus, textarea:focus {

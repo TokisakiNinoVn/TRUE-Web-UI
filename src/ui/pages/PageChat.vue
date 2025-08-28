@@ -43,15 +43,15 @@
       <div class="mb-4 max-h-[700px] overflow-y-auto bg-white p-4 rounded-lg shadow-md">
         <div v-for="message in messagesConversation[0]?.messages" :key="message._id" class="mb-2">
           <div v-if="message.sender === userLogin.username" class="flex justify-end">
-            <div class="message-revork flex flex-row items-center">
-              <span class="bg-blue-500 text-white p-2 rounded-lg">{{ message.content }}</span>
+            <div class="message-revork flex flex-col justify-start">
               <span class="font-bold ml-2">{{ message.sender }}</span>
+              <span class="bg-blue-500 text-white p-2 rounded-lg">{{ message.content }}</span>
             </div>
           </div>
 
-          <div v-else class="flex justify-start">
-            <span class="font-bold mr-2">{{ message.sender }}</span>
-            <div class="message-revork flex flex-row items-center">
+          <div v-else class="flex flex-row justify-start">
+            <div class="message-revork flex flex-col justify-start">
+              <span class="font-bold">{{ message.sender }}</span>
               <span class="bg-gray-300 p-2 rounded-lg">{{ message.content }}</span>
             </div>
           </div>
@@ -138,29 +138,31 @@ onMounted(async () => {
 // Function to send a message
 const sendMessage = async () => {
   if (!newMessage.value.trim()) {
-      error.value = 'Please enter a message.';
-      return;
+    error.value = 'Please enter a message.';
+    return;
   }
 
   const messageData = {
     senderUsername: userLogin.value.username,
-    recipientUsername:  "ninocutee",
+    recipientUsername: "ninocutee",
     content: newMessage.value,
     type: "text",
   };
 
   try {
-      const response = await messageStore.sendNewMessageAction(messageData);
-      if (response) {
-          messagesConversation.value[0].messages.push(response.data.newMessage); // Add new message to the current conversation
-          newMessage.value = '';
-          error.value = '';
-      }
+    const response = await messageStore.sendNewMessageAction(messageData);
+    if (response) {
+      messagesConversation.value[0].messages.push(response.data.newMessage);
+      newMessage.value = '';
+      error.value = '';
+      
+      // Reload the page after sending the message
+    }
+    location.reload();
   } catch (err) {
-      error.value = 'Failed to send message.';
+    error.value = 'Failed to send message.';
   }
 };
-
 
 const conversationStore = useConversationStore();
 const { getConversationsForUserLoginActions, deleteConversationActions } = conversationStore;
@@ -230,4 +232,8 @@ main {
 input:focus {
   outline: none;
 }
+input:focus, .textarea-comment:focus {
+  outline: none;
+}
+
 </style>

@@ -50,6 +50,30 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 const handleSignup = async () => {
+  if (username.value == "" || password.value =="" || confirmPassword.value=="") {
+    alert('Các trường không được để trống');
+    return;
+  }
+  if (username.value !== username.value.toLowerCase()) {
+    alert('Tên đăng nhập phải viết thường.');
+    return;
+  }
+  if (username.value.length < 8) {
+    alert('Tên đăng nhập phải có hơn 8 ký tự!');
+    return;
+  }
+  if (username.value.length < 5) {
+    alert('Tên đăng nhập phải có ít nhất 5 ký tự.');
+    return;
+  }
+
+  // Password validation
+  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+  if (!passwordRegex.test(password.value)) {
+    alert('Mật khẩu phải có ít nhất 8 ký tự, bao gồm chữ cái, số và ký tự đặc biệt.');
+    return;
+  }
+
   if (password.value !== confirmPassword.value) {
     alert('Mật khẩu và xác nhận mật khẩu không khớp. Vui lòng thử lại.');
     return;
@@ -70,4 +94,5 @@ const handleSignup = async () => {
     alert('Đăng ký thất bại. Vui lòng thử lại.');
   }
 };
+
 </script>
