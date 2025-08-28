@@ -1,6 +1,6 @@
 // message.api.js
 
-import instance from '@/services/axiosConfig';
+import instance from '@/apis/axiosConfig';
 
 // Gửi tin nhắn mới
 const sendMessage = async (data) =>  instance.post('/auth/message', data);

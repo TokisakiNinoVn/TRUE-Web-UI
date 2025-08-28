@@ -1,4 +1,4 @@
-import instance from '@/services/axiosConfig';
+import instance from '@/apis/axiosConfig';
 
 // Tạo cuộc hội thoại mới
 const createConversationApi = async (body) => instance.post(`/auth/messages/create`, body);

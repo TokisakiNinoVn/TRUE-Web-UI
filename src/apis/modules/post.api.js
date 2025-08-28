@@ -1,4 +1,4 @@
-import instance from '@/services/axiosConfig';
+import instance from '@/apis/axiosConfig';
 
 // Thêm bài đăng mới
 const add = async (body) => instance.post('/auth/post/', body);

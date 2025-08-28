@@ -2,7 +2,7 @@
 // message.store.js
 
 import { defineStore } from 'pinia';
-import { sendMessage, revokeMessage } from '@/services/modules/message.api';
+import { sendMessage, revokeMessage } from '@/apis/modules/message.api';
 
 export const useMessageStore = defineStore('message', {
   state: () => ({

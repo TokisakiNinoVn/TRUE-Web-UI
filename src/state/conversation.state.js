@@ -7,7 +7,7 @@ import {
   deleteConversationApi,
   searchConversationByUsernameApi,
   getConversationsForUserLoginApi
-} from '@/services/modules/conversation.api';
+} from '@/apis/modules/conversation.api';
 
 export const useConversationStore = defineStore('conversation', {
   state: () => ({

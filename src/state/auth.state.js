@@ -1,6 +1,6 @@
 // src/store/modules/auth.store.js
 import { defineStore } from 'pinia';
-import { login, register } from '@/services/modules/auth.api';
+import { login, register } from '@/apis/modules/auth.api';
 // import { useRouter } from 'vue-router';
 export const useAuthStore = defineStore('auth', {
   state: () => ({

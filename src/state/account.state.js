@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { getUserInfo, updateUser } from '@/services/modules/accounts.api';
+import { getUserInfo, updateUser } from '@/apis/modules/accounts.api';
 
 export const useAccountStore = defineStore('accounts', {
   state: () => ({

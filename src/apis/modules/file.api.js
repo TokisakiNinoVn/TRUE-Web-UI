@@ -1,4 +1,4 @@
-import instance from '@/services/axiosConfig';
+import instance from '@/apis/axiosConfig';
 
 // Hàm upload file
 const uploadFile = async (formData) => instance.post('/auth/file/upload',

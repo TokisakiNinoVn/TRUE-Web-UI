@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { uploadFile, getFile } from '@/services/modules/file.api';
+import { uploadFile, getFile } from '@/apis/modules/file.api';
 
 export const useFileStore = defineStore('file', {
   state: () => ({

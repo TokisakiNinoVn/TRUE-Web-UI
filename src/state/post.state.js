@@ -7,7 +7,7 @@ import {
     search,
     getLatestPosts,
     getLowestPricedPosts
-} from '@/services/modules/post.api';
+} from '@/apis/modules/post.api';
 
 export const usePostStore = defineStore('post', {
   state: () => ({
